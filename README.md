@@ -1,62 +1,142 @@
 # MotoGP VideoPass for Kodi
 
-`plugin.video.motogp` — Browse and play MotoGP, Moto2, and Moto3 races with your VideoPass subscription. Supports multiple camera feeds and up to 1080p@50fps via adaptive streaming.
+**Unofficial MotoGP VideoPass add-on for Kodi.**
+
+[![GitHub release](https://img.shields.io/github/v/release/ypoulis-hub/kodi-motogp-videopass?label=latest%20release)](https://github.com/ypoulis-hub/kodi-motogp-videopass/releases/latest)
+[![Kodi](https://img.shields.io/badge/Kodi-21%20Omega-blue)](https://kodi.tv/)
+[![License](https://img.shields.io/github/license/ypoulis-hub/kodi-motogp-videopass)](LICENSE)
+[![GitHub downloads](https://img.shields.io/github/downloads/ypoulis-hub/kodi-motogp-videopass/total)](https://github.com/ypoulis-hub/kodi-motogp-videopass/releases)
+[![GitHub stars](https://img.shields.io/github/stars/ypoulis-hub/kodi-motogp-videopass)](https://github.com/ypoulis-hub/kodi-motogp-videopass/stargazers)
+[![Issues](https://img.shields.io/github/issues/ypoulis-hub/kodi-motogp-videopass)](https://github.com/ypoulis-hub/kodi-motogp-videopass/issues)
+
+MotoGP VideoPass for Kodi is an unofficial Kodi add-on that lets MotoGP VideoPass subscribers browse and watch MotoGP content directly inside Kodi. It is also known as a MotoGP Kodi add-on, MotoGP VideoPass Kodi plugin, or `plugin.video.motogp`.
 
 [![Donate with PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate/?business=ypoulis%40gmail.com&currency_code=EUR)
+
+---
+
+## Screenshots
+
+| | | |
+|---|---|---|
+| ![MotoGP VideoPass for Kodi — home screen](docs/screenshots/motogp-videopass-kodi-home.png) | ![MotoGP VideoPass for Kodi — seasons](docs/screenshots/motogp-videopass-kodi-seasons.png) | ![MotoGP VideoPass for Kodi — events](docs/screenshots/motogp-videopass-kodi-events.png) |
+| Home screen | Seasons | Events |
+| ![MotoGP VideoPass for Kodi — sessions](docs/screenshots/motogp-videopass-kodi-sessions.png) | ![MotoGP VideoPass for Kodi — playback](docs/screenshots/motogp-kodi-playback.png) | ![MotoGP VideoPass for Kodi — settings and login](docs/screenshots/motogp-videopass-kodi-settings.png) |
+| Sessions / feeds | Playback | Settings & login |
+
+> Drop your real PNGs into `docs/screenshots/` using the filenames above and they will render here.
 
 ---
 
 ## Features
 
-- **Live race streaming** — watch the current live broadcast (race, qualifying, practice, etc.) when an event is on
-- Browse all seasons back to 2012
-- Races, sprint races, qualifying sessions, practice sessions
-- Multiple camera feeds per session:
-  - Commentary (main broadcast)
-  - Ambient (no commentary)
-  - Helicopter camera
-  - Onboard cameras 1–4
-- Video quality selection (1080p / 720p / 540p / 360p)
+- Browse MotoGP VideoPass content from inside Kodi
+- Watch races, sprint races, qualifying, and practice sessions
+- Browse seasons (back to 2012) and events
+- Multiple camera feeds per session: Commentary, Ambient, Helicopter, Onboard 1–4
+- **Live race streaming** when an event is live on motogp.com (since v0.2.0)
+- Login with your existing MotoGP VideoPass account (DAT cookie)
 - Adaptive streaming via `inputstream.adaptive` — DASH for VOD, HLS for live
+- Up to 1080p / 50 fps where the source provides it
+- Works on TV-friendly Kodi interface (Estuary and other skins)
+
+## Installation
+
+1. Download the latest **`plugin.video.motogp-x.y.z.zip`** from the [Releases page](https://github.com/ypoulis-hub/kodi-motogp-videopass/releases/latest).
+2. In Kodi, open **Settings → Add-ons**.
+3. Choose **Install from zip file**.
+4. Select the downloaded ZIP.
+5. Open the add-on once it appears under **Video add-ons**.
+6. Configure your MotoGP VideoPass authentication (see below).
+
+> _Recommended path (coming soon): install the YPoulis Kodi Repository add-on once and receive automatic updates for both this add-on and YouTube Music for Kodi._
 
 ## Requirements
 
 - Kodi 21 (Omega) or later
-- [inputstream.adaptive](https://github.com/xbmc/inputstream.adaptive) add-on (included with most Kodi builds)
-- MotoGP VideoPass subscription ([motogp.com/en/videopass](https://www.motogp.com/en/videopass))
+- An active **MotoGP VideoPass** subscription
+- `inputstream.adaptive` add-on (bundled with most Kodi builds)
 
-## Installation
+## Authentication / Login
 
-1. Download the zip from the `v0.2.0/` folder
-2. In Kodi: **Settings → Add-ons → Install from zip file**
-3. Navigate to the downloaded zip and install
-4. Follow the authentication steps below
+The add-on uses your MotoGP VideoPass session token (the `DAT` cookie) to authenticate. The token is a JWT — the add-on warns you when it is close to expiring.
 
-## Authentication
+1. Sign in to [motogp.com/en/videopass](https://www.motogp.com/en/videopass) in a desktop browser.
+2. Press **F12** → **Application** → **Cookies** → find the `DAT` cookie.
+3. Copy its value.
+4. In Kodi, open **Add-on Settings → Authentication → Auth Token** and paste it.
 
-The add-on uses your VideoPass session token (DAT cookie).
+## Supported Kodi versions
 
-1. Log in to [motogp.com/en/videopass](https://www.motogp.com/en/videopass) in your browser
-2. Press **F12** → **Application** → **Cookies** → find the `DAT` cookie
-3. Copy its value
-4. In Kodi, go to **Add-on Settings → Authentication → Auth Token** and paste it
+- **Kodi 21 Omega** — primary target, regularly tested
+- Kodi 20 Nexus may work but is not officially supported
 
-The token is a JWT and the add-on will warn you when it expires.
+## Supported platforms
 
-## Settings
+- Windows 10 / 11
+- LibreELEC (tested on x86_64 Generic builds)
+- Other Linux desktops running Kodi
+- macOS (untested but should work)
 
-| Setting | Description |
-|--------|-------------|
-| Auth Token | Your DAT cookie value from motogp.com |
-| Max Video Quality | 1080p / 720p / 540p / 360p |
-| Default Camera Feed | Commentary / Ambient / Helicopter / Onboard 1–4 |
-| Default Season Year | Pre-select a season on startup (empty = current year) |
-| Debug logging | Enable verbose logging to Kodi log |
+## Known limitations
+
+- Some pre-2012 archive content is not yet available via the same browse path
+- Live race streaming requires an active MotoGP VideoPass subscription that grants live access (most do)
+- Resume playback across sessions is not yet implemented (see [ROADMAP](ROADMAP.md))
+
+## FAQ
+
+**Is this an official MotoGP VideoPass add-on?**
+No. This is an unofficial Kodi add-on. It is not affiliated with MotoGP, Dorna Sports or VideoPass.
+
+**Do I need a MotoGP VideoPass subscription?**
+Yes — playback (both live and on-demand) requires an active VideoPass subscription tied to the cookie you provide.
+
+**Does it stream live races?**
+Yes. Since v0.2.0 the add-on shows a **● Live** entry at the top of the main menu when a session is live on motogp.com.
+
+**Does it support replays?**
+Yes — browse by season → event → category to find races, qualifying, practice and sprint sessions.
+
+**Does it work on Kodi 21 Omega?**
+Yes — Kodi 21 Omega is the primary target.
+
+**Does it work on LibreELEC?**
+Yes — it is regularly tested on LibreELEC running Kodi 21.
+
+## Troubleshooting
+
+| Problem | Likely cause / fix |
+|---|---|
+| Login failed / authentication failed | Token missing, copied incompletely, or expired. Re-copy the `DAT` cookie from a fresh login. |
+| Video does not start | Check `kodi.log` for `inputstream.adaptive` errors. Ensure the inputstream.adaptive add-on is installed and enabled. |
+| Subscription not detected | The token may not grant the requested content (live vs. archive). Confirm playback works on motogp.com first. |
+| Stream unavailable | Pulselive may be temporarily down or the event has been pulled. Retry after a few minutes. |
+| Event list not loading | Network or Pulselive API hiccup. Refresh the directory or check the Kodi log for HTTP errors. |
+| Playback buffering | Reduce **Max Video Quality** in the add-on settings, or test your network speed against motogp.com. |
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
+
+## Roadmap
+
+See [ROADMAP.md](ROADMAP.md).
+
+## Support
+
+- Open a [GitHub issue](https://github.com/ypoulis-hub/kodi-motogp-videopass/issues) using one of the templates (Bug, Feature request, Installation problem, Authentication problem).
+- Use [GitHub Discussions](https://github.com/ypoulis-hub/kodi-motogp-videopass/discussions) for questions, feature ideas or general feedback.
+- Follow the project on the [Kodi forum thread](https://forum.kodi.tv/showthread.php?tid=385237).
+
+If you find this add-on useful, you can support development with a one-time donation:
+
+[![Donate with PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate/?business=ypoulis%40gmail.com&currency_code=EUR)
+
+## Disclaimer
+
+This is an unofficial add-on and is **not** affiliated with, endorsed by or sponsored by MotoGP, Dorna Sports or VideoPass. A valid **MotoGP VideoPass** subscription is required for playback.
 
 ## License
 
-MIT
-
----
-
-[![Donate with PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate/?business=ypoulis%40gmail.com&currency_code=EUR)
+[MIT](LICENSE)
