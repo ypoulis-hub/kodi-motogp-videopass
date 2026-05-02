@@ -24,8 +24,6 @@ MotoGP VideoPass for Kodi is an unofficial Kodi add-on that lets MotoGP VideoPas
 | ![MotoGP VideoPass for Kodi — sessions](docs/screenshots/motogp-videopass-kodi-sessions.png) | ![MotoGP VideoPass for Kodi — playback](docs/screenshots/motogp-kodi-playback.png) | ![MotoGP VideoPass for Kodi — settings and login](docs/screenshots/motogp-videopass-kodi-settings.png) |
 | Sessions / feeds | Playback | Settings & login |
 
-> Drop your real PNGs into `docs/screenshots/` using the filenames above and they will render here.
-
 ---
 
 ## Features
