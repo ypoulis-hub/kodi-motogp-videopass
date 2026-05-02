@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MotoGP VideoPass for Kodi — Unofficial add-on</title>
+<meta name="description" content="MotoGP VideoPass for Kodi is an unofficial Kodi add-on that lets MotoGP VideoPass subscribers browse and watch races, qualifying, practice and live events directly inside Kodi.">
+<meta property="og:title" content="MotoGP VideoPass for Kodi">
+<meta property="og:description" content="Unofficial Kodi add-on for MotoGP VideoPass subscribers — VOD and live race streaming.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ypoulis-hub.github.io/kodi-motogp-videopass/">
+<meta property="og:image" content="https://raw.githubusercontent.com/ypoulis-hub/kodi-motogp-videopass/main/docs/screenshots/motogp-videopass-kodi-home.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://ypoulis-hub.github.io/kodi-motogp-videopass/">
+<style>
+:root{
+  --bg:#0a0a0c;
+  --bg-2:#16161a;
+  --fg:#f4f1ee;
+  --muted:#9c9aa1;
+  --accent:#cc0000;
+  --accent-2:#ffcc00;
+  --card:#181820;
+  --border:#28272d;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* Hero */
+.hero{
+  background:
+    radial-gradient(1200px 600px at 15% -10%,rgba(204,0,0,.4),transparent 60%),
+    radial-gradient(900px 500px at 90% 0%,rgba(255,204,0,.18),transparent 60%),
+    linear-gradient(180deg,#181010 0%,var(--bg) 100%);
+  padding:80px 0 56px;
+  text-align:center;
+  border-bottom:1px solid var(--border);
+}
+.eyebrow{
+  display:inline-block;
+  letter-spacing:.18em;
+  font-size:12px;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:14px;
+}
+h1{
+  font-size:clamp(36px,5vw,60px);
+  margin:0 0 12px;
+  line-height:1.1;
+  background:linear-gradient(180deg,#fff 0%,#bdb6bb 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.tagline{font-size:clamp(16px,1.6vw,20px);color:var(--muted);max-width:680px;margin:0 auto 28px}
+.live-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(204,0,0,.18);color:#ff9c9c;
+  padding:4px 10px;border-radius:999px;font-size:12px;
+  border:1px solid rgba(204,0,0,.4);margin-left:8px;
+  vertical-align:middle;
+}
+.live-pill::before{content:"●";color:#ff3b3b}
+.cta{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 22px;border-radius:999px;
+  background:var(--accent);color:#fff;font-weight:600;
+  border:1px solid color-mix(in srgb,var(--accent) 70%,#000 30%);
+  box-shadow:0 6px 22px rgba(204,0,0,.4);
+  transition:transform .15s ease;
+}
+.cta:hover{transform:translateY(-1px);text-decoration:none}
+.cta-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 18px;border-radius:999px;
+  background:transparent;color:var(--fg);
+  border:1px solid var(--border);
+  margin-left:10px;
+}
+.cta-secondary:hover{background:var(--bg-2);text-decoration:none}
+.hero-meta{margin-top:18px;color:var(--muted);font-size:14px}
+
+/* Sections */
+section{padding:64px 0;border-bottom:1px solid var(--border)}
+section:last-of-type{border-bottom:0}
+h2{font-size:clamp(24px,2.6vw,32px);margin:0 0 24px}
+h3{margin:0 0 8px}
+
+/* Screenshots */
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.shot{
+  border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
+  background:var(--card);
+}
+.shot img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:#000}
+.shot figcaption{padding:10px 14px;color:var(--muted);font-size:14px}
+
+/* Features */
+.features{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.feat{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 20px;
+}
+.feat .ico{font-size:22px;margin-bottom:6px}
+.feat strong{display:block;margin-bottom:4px}
+.feat span{color:var(--muted);font-size:14px}
+
+/* Install steps */
+ol.install{padding-left:20px;margin:0}
+ol.install li{margin:8px 0;color:var(--muted)}
+ol.install li b{color:var(--fg);font-weight:600}
+
+/* FAQ */
+details{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px 18px;margin:10px 0;
+}
+details[open]{background:var(--bg-2)}
+summary{cursor:pointer;font-weight:600;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"＋";float:right;color:var(--muted);transition:transform .2s ease}
+details[open] summary::after{content:"−"}
+details p{margin:10px 0 0;color:var(--muted)}
+
+/* Footer */
+footer{padding:40px 0;text-align:center;color:var(--muted);font-size:14px}
+footer a{color:var(--muted);border-bottom:1px dotted var(--border)}
+.row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:14px}
+.disclaimer{max-width:720px;margin:0 auto 14px;font-size:13px}
+hr{border:0;border-top:1px solid var(--border);margin:28px 0}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Unofficial Kodi add-on · plugin.video.motogp</div>
+    <h1>MotoGP VideoPass for Kodi <span class="live-pill">LIVE in v0.2.0</span></h1>
+    <p class="tagline">Watch MotoGP, Moto2 and Moto3 races, qualifying, practice — and live race weekends — straight from Kodi with your existing VideoPass subscription.</p>
+    <a class="cta" href="https://github.com/ypoulis-hub/kodi-motogp-videopass/releases/latest" rel="noopener">⬇ Download latest release</a>
+    <a class="cta-secondary" href="https://github.com/ypoulis-hub/kodi-motogp-videopass" rel="noopener">View on GitHub</a>
+    <div class="hero-meta">Tested on <b>Kodi 21 Omega</b> · Windows · LibreELEC · Linux</div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Screenshots</h2>
+    <div class="shots">
+      <figure class="shot"><img src="screenshots/motogp-videopass-kodi-home.png" alt="MotoGP VideoPass for Kodi home screen"><figcaption>Home screen</figcaption></figure>
+      <figure class="shot"><img src="screenshots/motogp-videopass-kodi-seasons.png" alt="MotoGP VideoPass for Kodi seasons browser"><figcaption>Seasons</figcaption></figure>
+      <figure class="shot"><img src="screenshots/motogp-videopass-kodi-events.png" alt="MotoGP VideoPass for Kodi events"><figcaption>Events</figcaption></figure>
+      <figure class="shot"><img src="screenshots/motogp-videopass-kodi-sessions.png" alt="MotoGP VideoPass for Kodi sessions and camera feeds"><figcaption>Sessions &amp; feeds</figcaption></figure>
+      <figure class="shot"><img src="screenshots/motogp-kodi-playback.png" alt="MotoGP VideoPass for Kodi playback"><figcaption>Playback</figcaption></figure>
+      <figure class="shot"><img src="screenshots/motogp-videopass-kodi-settings.png" alt="MotoGP VideoPass for Kodi settings and login"><figcaption>Settings &amp; login</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Features</h2>
+    <div class="features">
+      <div class="feat"><div class="ico">🔴</div><strong>Live race streaming</strong><span>● Live entry plays the current event when one is on (v0.2.0+).</span></div>
+      <div class="feat"><div class="ico">📅</div><strong>Browse seasons &amp; events</strong><span>Back to 2012 — races, sprints, qualifying and practice.</span></div>
+      <div class="feat"><div class="ico">🎥</div><strong>Multiple camera feeds</strong><span>Commentary, Ambient, Helicopter, Onboard 1–4.</span></div>
+      <div class="feat"><div class="ico">🏎️</div><strong>MotoGP / Moto2 / Moto3</strong><span>All categories, all sessions per event.</span></div>
+      <div class="feat"><div class="ico">📺</div><strong>Up to 1080p 50 fps</strong><span>Adaptive DASH for VOD, HLS for live, via inputstream.adaptive.</span></div>
+      <div class="feat"><div class="ico">🔑</div><strong>Your VideoPass account</strong><span>Just paste your DAT cookie — no extra subscription.</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Installation</h2>
+    <ol class="install">
+      <li>Download the latest <b>plugin.video.motogp-x.y.z.zip</b> from the <a href="https://github.com/ypoulis-hub/kodi-motogp-videopass/releases/latest">Releases page</a>.</li>
+      <li>Open <b>Settings → Add-ons</b> in Kodi.</li>
+      <li>Choose <b>Install from zip file</b>.</li>
+      <li>Select the downloaded ZIP.</li>
+      <li>Open the add-on under <b>Video add-ons</b>.</li>
+      <li>Paste your VideoPass DAT cookie into authentication settings. See the <a href="https://github.com/ypoulis-hub/kodi-motogp-videopass#authentication--login">README</a>.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>FAQ</h2>
+    <details><summary>Is this an official MotoGP VideoPass add-on?</summary><p>No — this is an unofficial Kodi add-on. It is not affiliated with MotoGP, Dorna Sports or VideoPass.</p></details>
+    <details><summary>Do I need a MotoGP VideoPass subscription?</summary><p>Yes. Both VOD and live playback require an active VideoPass subscription tied to the cookie you provide.</p></details>
+    <details><summary>Does it stream live races?</summary><p>Yes. Since v0.2.0 a <b>● Live</b> entry appears at the top of the main menu when a session is live on motogp.com.</p></details>
+    <details><summary>Does it support replays?</summary><p>Yes — browse by season → event → category to find races, qualifying, practice and sprint sessions.</p></details>
+    <details><summary>Does it work on Kodi 21 Omega?</summary><p>Yes — Kodi 21 Omega is the primary target.</p></details>
+    <details><summary>Does it work on LibreELEC?</summary><p>Yes — it is regularly tested on LibreELEC running Kodi 21.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <a href="https://github.com/ypoulis-hub/kodi-motogp-videopass">GitHub</a>
+      <a href="https://github.com/ypoulis-hub/kodi-motogp-videopass/releases">Releases</a>
+      <a href="https://github.com/ypoulis-hub/kodi-motogp-videopass/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="https://github.com/ypoulis-hub/kodi-motogp-videopass/blob/main/ROADMAP.md">Roadmap</a>
+      <a href="https://github.com/ypoulis-hub/kodi-motogp-videopass/discussions">Discussions</a>
+      <a href="https://github.com/ypoulis-hub/kodi-motogp-videopass/issues">Issues</a>
+      <a href="https://forum.kodi.tv/showthread.php?tid=385237">Kodi forum</a>
+    </div>
+    <div class="row">
+      <a href="https://www.paypal.com/donate/?business=ypoulis%40gmail.com&amp;currency_code=EUR">❤ Donate</a>
+    </div>
+    <hr>
+    <p class="disclaimer">This is an unofficial add-on and is <b>not</b> affiliated with, endorsed by or sponsored by MotoGP, Dorna Sports or VideoPass. A valid <b>MotoGP VideoPass</b> subscription is required for playback.</p>
+    <p>© ypoulis · MIT License</p>
+  </div>
+</footer>
+
+</body>
+</html>
