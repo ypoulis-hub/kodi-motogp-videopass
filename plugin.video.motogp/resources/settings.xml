@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
   <category label="Authentication">
-    <setting id="auth_token" type="text" label="Auth Token (DAT cookie from browser)" default=""/>
+    <setting id="email" type="text" label="Email" default=""/>
+    <setting id="password" type="text" label="Password" option="hidden" default=""/>
+    <setting id="auth_token" type="text" label="Auth Token (auto-filled; or paste a DAT cookie)" default=""/>
     <setting id="access_token" type="text" label="Live Bearer Token (access_token cookie, optional)" default=""/>
   </category>
   <category label="Playback">

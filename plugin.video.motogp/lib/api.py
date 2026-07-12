@@ -7,6 +7,8 @@ import urllib.parse
 import xbmc
 import xbmcaddon
 
+from lib import auth as auth_svc
+
 ADDON = xbmcaddon.Addon()
 
 API_BASE = 'https://api.pulselive.motogp.com'
@@ -58,6 +60,7 @@ def _request(url, auth=False):
         req.add_header(k, v)
 
     if auth:
+        auth_svc.ensure_token()
         token = ADDON.getSetting('auth_token').strip()
         if not token:
             raise RuntimeError('No auth token configured. Go to Add-on Settings → Authentication.')
@@ -121,6 +124,7 @@ def resolve_live_stream_url(redirect_url):
     url = f'{redirect_url}{sep}client=true'
     xbmc.log(f'[MotoGP] resolving live URL: {redirect_url[:80]}...', xbmc.LOGINFO)
 
+    auth_svc.ensure_token()
     dat_token = ADDON.getSetting('auth_token').strip()
     if not dat_token:
         raise RuntimeError('No auth token configured.')
@@ -161,6 +165,7 @@ def get_live_player_data(protocol='dash'):
     url = f'{LIVE_PLAYER_DATA_URL}?protocol={protocol}'
     log(f'GET {url}')
 
+    auth_svc.ensure_token()
     dat_token = ADDON.getSetting('auth_token').strip()
     if not dat_token:
         raise RuntimeError('No auth token configured. Go to Add-on Settings → Authentication.')

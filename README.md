@@ -68,12 +68,15 @@ Full instructions and one-click landing page: [ypoulis-hub.github.io/kodi-repo](
 
 ## Authentication / Login
 
-The add-on uses your MotoGP VideoPass session token (the `DAT` cookie) to authenticate. The token is a JWT — the add-on warns you when it is close to expiring.
+Since v0.3.0 the add-on logs in directly with your **MotoGP account email and password** — no browser or cookie copying required, so it works fully headless on LibreELEC.
 
-1. Sign in to [motogp.com/en/videopass](https://www.motogp.com/en/videopass) in a desktop browser.
-2. Press **F12** → **Application** → **Cookies** → find the `DAT` cookie.
-3. Copy its value.
-4. In Kodi, open **Add-on Settings → Authentication → Auth Token** and paste it.
+1. Open **Add-on Settings → Authentication**.
+2. Enter your MotoGP **Email** and **Password** (the same ones you use on motogp.com).
+3. Start browsing — the add-on signs in automatically, stores the token, and refreshes it on its own when it expires.
+
+Your password is stored only in Kodi's local add-on settings on your device and is sent only to MotoGP's own login endpoint.
+
+> **Fallback:** you can still paste a `DAT` token manually into the **Auth Token** field (from a browser's cookies) if you prefer not to store your password.
 
 ## Supported Kodi versions
 

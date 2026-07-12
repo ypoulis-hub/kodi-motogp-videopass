@@ -4,6 +4,19 @@ All notable changes to **MotoGP VideoPass for Kodi** are documented in this file
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] – 2026-07-13
+
+### Added
+- **Email + password login.** Enter your MotoGP account credentials in the add-on settings and it signs in directly (OAuth2 password grant against `api.motogp.com`), obtaining and storing the token itself. No more copying the `DAT` cookie from a browser — works fully headless on LibreELEC.
+- **Automatic token refresh.** When the token expires the add-on logs in again transparently before VOD and live requests.
+
+### Changed
+- Authentication settings now show **Email** and **Password** fields. A manually pasted `auth_token` is still supported as a fallback.
+
+### Tested on
+- Windows 10 / 11 with Kodi 21 Omega
+- LibreELEC running Kodi 21 Omega
+
 ## [0.2.0] – 2026-04-26
 
 ### Added
