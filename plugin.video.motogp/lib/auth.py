@@ -31,6 +31,15 @@ def log(msg):
     xbmc.log(f'[MotoGP] auth: {msg}', xbmc.LOGINFO)
 
 
+# Why the last automatic login failed (shown to the user by the main menu),
+# or None if it succeeded / was never attempted in this invocation.
+_last_login_error = None
+
+
+def last_login_error():
+    return _last_login_error
+
+
 # ── token helpers ──
 
 def _decode_payload(token):
@@ -71,6 +80,24 @@ def login():
     if not (email and password):
         return False, 'no_credentials'
 
+    ok, err = _password_grant(email, password)
+    # Kodi's on-screen keyboard makes stray spaces easy; try once without them.
+    if not ok and err == 'invalid_grant' and password != password.strip():
+        ok, err = _password_grant(email, password.strip())
+
+    if ok:
+        return True, None
+    if err == 'invalid_grant':
+        return False, 'Λάθος email ή κωδικός.'
+    return False, err
+
+
+def _password_grant(email, password):
+    """One OAuth2 password-grant attempt.
+
+    Returns (True, None) with the token stored, or (False, reason) where
+    reason is 'invalid_grant' for bad credentials or a user-facing message.
+    """
     body = json.dumps({
         'grant_type': 'password',
         'client_id': LOGIN_CLIENT_ID,
@@ -90,13 +117,28 @@ def login():
         with urllib.request.urlopen(req, timeout=20) as resp:
             data = json.loads(resp.read().decode('utf-8'))
     except urllib.error.HTTPError as e:
-        if e.code in (400, 401, 403):
-            log(f'login rejected: HTTP {e.code}')
-            return False, 'Λάθος email ή κωδικός.'
-        return False, f'Αποτυχία σύνδεσης (HTTP {e.code}).'
+        # The endpoint answers 400 for bad credentials *and* for malformed
+        # requests — the JSON body tells them apart.
+        raw = ''
+        try:
+            raw = e.read().decode('utf-8', errors='replace')
+        except Exception:
+            pass
+        try:
+            info = json.loads(raw)
+        except ValueError:
+            info = {}
+        error = info.get('error') or info.get('error_type') or ''
+        message = info.get('message') or raw[:200]
+        log(f'login rejected: HTTP {e.code} {error} {message[:160]}')
+        if error == 'invalid_grant' or (not error and e.code in (400, 401, 403)):
+            return False, 'invalid_grant'
+        return False, f'Αποτυχία σύνδεσης (HTTP {e.code}): {message or error}'
     except urllib.error.URLError as e:
+        log(f'login network error: {e.reason}')
         return False, f'Πρόβλημα δικτύου: {e.reason}'
     except Exception as e:
+        log(f'login error: {e}')
         return False, f'Σφάλμα: {e}'
 
     token = data.get('access_token')
@@ -114,12 +156,14 @@ def ensure_token():
     Uses the stored token if still valid, otherwise logs in with the
     configured email/password. Falls back to a manually pasted token.
     """
+    global _last_login_error
     if _token_valid(ADDON.getSetting('auth_token').strip()):
         return True
     email = ADDON.getSetting('email').strip()
     password = ADDON.getSetting('password')
     if email and password:
-        ok, _err = login()
+        ok, err = login()
+        _last_login_error = None if ok else err
         return ok
     # legacy: a manually pasted (still-valid) token
     return _token_valid(ADDON.getSetting('auth_token').strip())

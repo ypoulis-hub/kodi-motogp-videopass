@@ -4,6 +4,13 @@ All notable changes to **MotoGP VideoPass for Kodi** are documented in this file
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] – 2026-09-06
+
+### Fixed
+- **Failed logins were silent.** When the email/password sign-in was rejected, the add-on just showed "[ Set Up Authentication ]" again with no explanation, which looked like the login itself was broken. The main menu now shows *why* it failed ("Λάθος email ή κωδικός", a missing field, a network error, …).
+- Login errors are classified from the server's JSON body instead of the bare HTTP status (`invalid_grant` vs. malformed request), and the reason is written to `kodi.log`.
+- A password with leading/trailing spaces (easy to get from Kodi's on-screen keyboard) is retried once without them.
+
 ## [0.3.0] – 2026-07-13
 
 ### Added

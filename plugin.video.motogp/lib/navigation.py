@@ -9,7 +9,7 @@ import xbmcplugin
 import xbmcaddon
 
 from lib import api
-from lib.auth import is_authenticated, show_token_instructions
+from lib.auth import is_authenticated, last_login_error, show_token_instructions
 
 ADDON = xbmcaddon.Addon()
 
@@ -59,6 +59,11 @@ class Router:
 
     def action_main_menu(self, params):
         if not is_authenticated():
+            # Tell the user *why* the automatic login failed instead of
+            # silently bouncing them back to the settings dialog.
+            error = last_login_error()
+            if error:
+                xbmcgui.Dialog().ok('MotoGP - Η σύνδεση απέτυχε', error)
             self._add_dir('[ Set Up Authentication ]', action='setup_auth',
                           icon='DefaultUser.png')
             xbmcplugin.endOfDirectory(self.handle)
